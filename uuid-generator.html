@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UUID 생성기 - UUID v4 대량 생성 온라인 도구 | DevToolbox</title>
+<meta name="description" content="UUID v4(랜덤 고유 식별자)를 원하는 개수만큼 즉시 생성하는 무료 온라인 도구입니다. 대문자 변환, 하이픈 제거 옵션과 한 번에 복사 기능을 제공하며 브라우저에서만 동작합니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/uuid-generator.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html" class="active">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>UUID 생성기</h1>
+  <p class="page-desc">암호학적으로 안전한 난수 기반의 UUID v4를 원하는 개수만큼 생성합니다.</p>
+  <p class="privacy-badge">🔒 브라우저의 crypto API로 생성되며 서버 통신이 없습니다.</p>
+
+  <div class="card">
+    <div class="two-col">
+      <div>
+        <label for="count">생성 개수 (1~100)</label>
+        <input type="number" id="count" value="5" min="1" max="100">
+      </div>
+      <div>
+        <label>옵션</label>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:8px;">
+          <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0;">
+            <input type="checkbox" id="upper" style="width:auto;"> 대문자
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0;">
+            <input type="checkbox" id="noHyphen" style="width:auto;"> 하이픈 제거
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="btnGen">생성</button>
+      <button class="btn secondary" id="btnCopy">전체 복사</button>
+    </div>
+    <p id="msg" class="result-msg" aria-live="polite"></p>
+    <label for="out">생성 결과</label>
+    <textarea id="out" readonly spellcheck="false" style="min-height:200px;"></textarea>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>생성 개수를 지정하고 <strong>생성</strong> 버튼을 누르면 UUID v4가 한 줄에 하나씩 만들어집니다. <strong>대문자</strong> 옵션은 결과를 모두 대문자로, <strong>하이픈 제거</strong> 옵션은 <code>-</code>를 뺀 32자리 문자열로 만들어 줍니다(일부 시스템은 하이픈 없는 형식을 사용합니다). <strong>전체 복사</strong> 버튼으로 생성된 목록 전체를 클립보드에 복사할 수 있습니다. 이 도구는 브라우저의 <code>crypto.randomUUID()</code> / <code>crypto.getRandomValues()</code>를 사용하므로 예측 불가능한 안전한 난수로 생성됩니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>데이터베이스 기본 키나 외부 노출용 식별자가 필요할 때</li>
+      <li>테스트 데이터·목업 데이터에 넣을 고유 ID를 여러 개 만들 때</li>
+      <li>API 요청 추적용 request-id, correlation-id 값을 임시로 만들 때</li>
+      <li>파일명·리소스명 충돌을 피하기 위한 고유 문자열이 필요할 때</li>
+      <li>라이선스 키, 초대 코드 등의 초안 값을 만들 때</li>
+    </ul>
+    <p>UUID v4는 122비트의 무작위성을 가지므로 실무적으로 중복 걱정 없이 사용할 수 있습니다. 생성된 값은 화면에만 표시될 뿐 어디에도 저장·전송되지 않으므로, 새로고침하면 같은 값을 다시 볼 수 없다는 점만 유의하세요.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var out = document.getElementById("out");
+  var msg = document.getElementById("msg");
+
+  function uuid4() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    var b = crypto.getRandomValues(new Uint8Array(16));
+    b[6] = (b[6] & 0x0f) | 0x40;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    var h = Array.from(b, function (x) { return x.toString(16).padStart(2, "0"); }).join("");
+    return h.slice(0, 8) + "-" + h.slice(8, 12) + "-" + h.slice(12, 16) + "-" + h.slice(16, 20) + "-" + h.slice(20);
+  }
+
+  document.getElementById("btnGen").onclick = function () {
+    var n = Math.min(100, Math.max(1, parseInt(document.getElementById("count").value, 10) || 1));
+    var upper = document.getElementById("upper").checked;
+    var noHyphen = document.getElementById("noHyphen").checked;
+    var list = [];
+    for (var i = 0; i < n; i++) {
+      var u = uuid4();
+      if (noHyphen) u = u.replace(/-/g, "");
+      if (upper) u = u.toUpperCase();
+      list.push(u);
+    }
+    out.value = list.join("\n");
+    msg.textContent = "✅ " + n + "개 생성 완료";
+    msg.className = "result-msg ok";
+  };
+
+  document.getElementById("btnCopy").onclick = function () { copyText(out.value, msg); };
+  document.getElementById("btnGen").click();
+})();
+</script>
+</body>
+</html>

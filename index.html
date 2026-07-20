@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevToolbox - 개발자를 위한 무료 온라인 유틸리티 도구 모음</title>
+<meta name="description" content="JSON 포매터, Base64 인코더, 정규식 테스터, 타임스탬프 변환기 등 개발자에게 필요한 10가지 온라인 도구를 무료로 제공합니다. 설치 없이 브라우저에서 바로 사용하세요.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>개발자를 위한 무료 온라인 유틸리티 도구 모음</h1>
+  <p class="page-desc">설치도, 회원가입도 필요 없습니다. 필요한 도구를 골라 브라우저에서 바로 사용하세요.</p>
+  <p class="privacy-badge">🔒 모든 도구는 브라우저(클라이언트)에서만 동작하며, 입력한 데이터는 서버로 전송되지 않습니다.</p>
+
+  <div class="tool-grid">
+    <a class="tool-card" href="json-formatter.html">
+      <div class="icon">📋</div>
+      <h2>JSON 포매터 / 검증기</h2>
+      <p>지저분한 JSON을 보기 좋게 정렬하고 문법 오류를 즉시 찾아냅니다.</p>
+    </a>
+    <a class="tool-card" href="char-counter.html">
+      <div class="icon">🔢</div>
+      <h2>글자수 · 바이트 세기</h2>
+      <p>글자 수, 단어 수, UTF-8 바이트 수를 실시간으로 계산합니다.</p>
+    </a>
+    <a class="tool-card" href="base64.html">
+      <div class="icon">🔐</div>
+      <h2>Base64 인코더 / 디코더</h2>
+      <p>텍스트를 Base64로 변환하거나 원문으로 복원합니다. 한글 완벽 지원.</p>
+    </a>
+    <a class="tool-card" href="url-encoder.html">
+      <div class="icon">🔗</div>
+      <h2>URL 인코더 / 디코더</h2>
+      <p>URL에 넣을 수 없는 특수문자·한글을 퍼센트 인코딩으로 변환합니다.</p>
+    </a>
+    <a class="tool-card" href="regex-tester.html">
+      <div class="icon">🎯</div>
+      <h2>정규식 테스터</h2>
+      <p>정규표현식을 실시간으로 테스트하고 매칭 결과를 하이라이트로 확인합니다.</p>
+    </a>
+    <a class="tool-card" href="cron-generator.html">
+      <div class="icon">⏰</div>
+      <h2>Cron 표현식 생성기</h2>
+      <p>클릭 몇 번으로 크론 스케줄 표현식을 만들고 의미를 한글로 확인합니다.</p>
+    </a>
+    <a class="tool-card" href="timestamp.html">
+      <div class="icon">🕐</div>
+      <h2>타임스탬프 변환기</h2>
+      <p>유닉스 타임스탬프와 날짜/시간을 서로 변환합니다. KST·UTC 동시 표시.</p>
+    </a>
+    <a class="tool-card" href="uuid-generator.html">
+      <div class="icon">🆔</div>
+      <h2>UUID 생성기</h2>
+      <p>UUID v4를 원하는 개수만큼 즉시 생성합니다. 대문자·하이픈 옵션 지원.</p>
+    </a>
+    <a class="tool-card" href="color-converter.html">
+      <div class="icon">🎨</div>
+      <h2>HEX ↔ RGB 색상 변환기</h2>
+      <p>HEX, RGB, HSL 색상 코드를 서로 변환하고 미리보기로 확인합니다.</p>
+    </a>
+    <a class="tool-card" href="text-diff.html">
+      <div class="icon">📝</div>
+      <h2>텍스트 Diff 비교기</h2>
+      <p>두 텍스트의 차이를 줄 단위로 비교해 추가·삭제된 부분을 표시합니다.</p>
+    </a>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <section class="tool-article">
+    <h2>DevToolbox는 어떤 사이트인가요?</h2>
+    <p>DevToolbox는 개발자와 IT 실무자가 업무 중 자주 필요로 하는 소형 유틸리티를 한곳에 모은 무료 웹 도구 모음입니다. JSON 데이터 정리, 인코딩/디코딩, 정규식 검증, 시간 변환처럼 "잠깐 필요한데 매번 검색하게 되는" 작업들을 광고나 회원가입 방해 없이 빠르게 처리할 수 있도록 만들었습니다.</p>
+    <p>모든 도구는 순수 자바스크립트로 작성되어 여러분의 브라우저 안에서만 실행됩니다. 입력한 코드, 텍스트, 데이터는 어떤 서버로도 전송되지 않으므로 사내 기밀 데이터나 개인정보가 포함된 내용도 안심하고 사용할 수 있습니다. 자세한 내용은 <a href="privacy.html">개인정보처리방침</a>을 확인하세요.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+</body>
+</html>

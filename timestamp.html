@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>타임스탬프 변환기 - 유닉스 시간 ↔ 날짜 변환 (KST/UTC) | DevToolbox</title>
+<meta name="description" content="유닉스 타임스탬프(Unix Timestamp)를 한국 시간·UTC 날짜로 변환하거나, 날짜를 타임스탬프로 변환하는 무료 온라인 도구입니다. 초·밀리초 단위 자동 인식, 현재 타임스탬프 실시간 표시.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/timestamp.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html" class="active">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>타임스탬프 변환기</h1>
+  <p class="page-desc">유닉스 타임스탬프 ↔ 날짜/시간을 서로 변환합니다. 한국 시간(KST)과 UTC를 함께 표시합니다.</p>
+  <p class="privacy-badge">🔒 모든 계산은 브라우저에서만 이루어지며 서버로 전송되지 않습니다.</p>
+
+  <div class="card">
+    <label>현재 유닉스 타임스탬프 (실시간)</label>
+    <div class="output-box" id="nowTs" style="font-size:1.3rem;text-align:center;"></div>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn secondary" id="btnCopyNow">현재 값 복사</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-top:0;">타임스탬프 → 날짜</h2>
+    <label for="tsIn">타임스탬프 (초 또는 밀리초, 자동 인식)</label>
+    <input type="text" id="tsIn" placeholder="예: 1784880000 또는 1784880000000" spellcheck="false" inputmode="numeric">
+    <div class="btn-row"><button class="btn" id="btnTs2Date">변환</button></div>
+    <p id="msg1" class="result-msg" aria-live="polite"></p>
+    <div class="output-box" id="dateOut">-</div>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-top:0;">날짜 → 타임스탬프</h2>
+    <label for="dateIn">날짜/시간 (내 컴퓨터 시간대 기준)</label>
+    <input type="datetime-local" id="dateIn" step="1">
+    <div class="btn-row"><button class="btn" id="btnDate2Ts">변환</button></div>
+    <p id="msg2" class="result-msg" aria-live="polite"></p>
+    <div class="output-box" id="tsOut">-</div>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>맨 위에는 현재 시각의 유닉스 타임스탬프가 1초 단위로 갱신되어 표시됩니다. <strong>타임스탬프 → 날짜</strong> 칸에 숫자를 입력하면 10자리(초)인지 13자리(밀리초)인지를 자동으로 판별하여 한국 시간(KST, UTC+9)과 협정세계시(UTC), 그리고 ISO 8601 형식으로 변환해 줍니다. 반대로 <strong>날짜 → 타임스탬프</strong>에서는 달력에서 날짜와 시간을 고르면 초·밀리초 단위 타임스탬프를 모두 보여줍니다. 유닉스 타임스탬프는 1970년 1월 1일 0시(UTC)부터 흐른 시간을 뜻하며, 전 세계 어디서나 같은 값을 갖습니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>서버 로그나 DB에 저장된 <code>created_at</code> 타임스탬프가 실제 몇 월 며칠인지 확인할 때</li>
+      <li>JWT 토큰의 만료 시각(exp) 값을 사람이 읽을 수 있는 시간으로 바꿀 때</li>
+      <li>API 요청 파라미터에 넣을 특정 날짜의 타임스탬프가 필요할 때</li>
+      <li>UTC 기준 로그와 한국 시간 사이의 9시간 차이를 헷갈리지 않고 확인할 때</li>
+      <li>캐시 만료 시각, 예약 발송 시각 등을 계산할 때</li>
+    </ul>
+    <p>변환은 자바스크립트 Date 객체로 브라우저 안에서만 처리됩니다. 초 단위와 밀리초 단위를 혼동하면 1970년이나 먼 미래로 계산되는 흔한 실수를 자동 판별 기능이 막아줍니다.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var nowEl = document.getElementById("nowTs");
+
+  function tick() {
+    nowEl.textContent = Math.floor(Date.now() / 1000);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  function fmt(d, tz) {
+    return new Intl.DateTimeFormat("ko-KR", {
+      timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, weekday: "short"
+    }).format(d);
+  }
+
+  document.getElementById("btnCopyNow").onclick = function () { copyText(nowEl.textContent, document.getElementById("msg1")); };
+
+  document.getElementById("btnTs2Date").onclick = function () {
+    var msg = document.getElementById("msg1");
+    var out = document.getElementById("dateOut");
+    var raw = document.getElementById("tsIn").value.trim();
+    if (!/^-?\d+$/.test(raw)) {
+      msg.textContent = "❌ 숫자만 입력해 주세요.";
+      msg.className = "result-msg err";
+      return;
+    }
+    var n = parseInt(raw, 10);
+    var isMs = Math.abs(n) >= 1e12;
+    var d = new Date(isMs ? n : n * 1000);
+    if (isNaN(d.getTime())) {
+      msg.textContent = "❌ 변환할 수 없는 값입니다.";
+      msg.className = "result-msg err";
+      return;
+    }
+    msg.textContent = "✅ " + (isMs ? "밀리초" : "초") + " 단위로 인식했습니다.";
+    msg.className = "result-msg ok";
+    out.textContent =
+      "한국 시간(KST): " + fmt(d, "Asia/Seoul") + "\n" +
+      "UTC:            " + fmt(d, "UTC") + "\n" +
+      "ISO 8601:       " + d.toISOString();
+  };
+
+  document.getElementById("btnDate2Ts").onclick = function () {
+    var msg = document.getElementById("msg2");
+    var out = document.getElementById("tsOut");
+    var v = document.getElementById("dateIn").value;
+    if (!v) {
+      msg.textContent = "❌ 날짜를 선택해 주세요.";
+      msg.className = "result-msg err";
+      return;
+    }
+    var d = new Date(v);
+    msg.textContent = "✅ 변환 완료";
+    msg.className = "result-msg ok";
+    out.textContent =
+      "초 단위:     " + Math.floor(d.getTime() / 1000) + "\n" +
+      "밀리초 단위: " + d.getTime() + "\n" +
+      "ISO 8601:    " + d.toISOString();
+  };
+})();
+</script>
+</body>
+</html>

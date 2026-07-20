@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON 포매터 / 검증기 - 온라인 JSON 정렬·오류 검사 | DevToolbox</title>
+<meta name="description" content="지저분한 JSON을 보기 좋게 정렬하고 문법 오류 위치를 즉시 찾아주는 무료 온라인 JSON 포매터/검증기입니다. 2칸·4칸 들여쓰기, 압축(minify) 지원. 브라우저에서만 처리되어 안전합니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/json-formatter.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html" class="active">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>JSON 포매터 / 검증기</h1>
+  <p class="page-desc">JSON을 붙여넣고 버튼 하나로 정렬(pretty print)하거나 압축하세요. 문법 오류도 바로 알려드립니다.</p>
+  <p class="privacy-badge">🔒 입력한 JSON은 브라우저에서만 처리되며 서버로 전송되지 않습니다.</p>
+
+  <div class="card">
+    <label for="jsonInput">JSON 입력</label>
+    <textarea id="jsonInput" placeholder='{"name": "DevToolbox", "tools": 10}' spellcheck="false"></textarea>
+    <div class="btn-row">
+      <button class="btn" id="btnFormat2">정렬 (2칸)</button>
+      <button class="btn" id="btnFormat4">정렬 (4칸)</button>
+      <button class="btn secondary" id="btnMinify">압축 (Minify)</button>
+      <button class="btn secondary" id="btnValidate">검증만</button>
+      <button class="btn secondary" id="btnCopy">결과 복사</button>
+      <button class="btn secondary" id="btnClear">지우기</button>
+    </div>
+    <p id="msg" class="result-msg" aria-live="polite"></p>
+    <label for="jsonOutput">결과</label>
+    <textarea id="jsonOutput" readonly spellcheck="false"></textarea>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>위 입력창에 JSON 문자열을 붙여넣은 뒤 <strong>정렬(2칸/4칸)</strong> 버튼을 누르면 들여쓰기가 적용된 읽기 좋은 형태로 변환됩니다. 반대로 <strong>압축(Minify)</strong> 버튼은 공백과 줄바꿈을 모두 제거해 전송용으로 최소화된 한 줄 JSON을 만들어 줍니다. JSON에 문법 오류가 있으면 결과 대신 오류 메시지와 대략적인 위치가 표시되므로, 쉼표 누락이나 따옴표 오류를 빠르게 찾아 고칠 수 있습니다. <strong>결과 복사</strong> 버튼으로 변환 결과를 클립보드에 바로 복사할 수 있습니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>API 응답이 한 줄로 압축되어 와서 구조를 파악하기 어려울 때</li>
+      <li>서버 로그에 찍힌 JSON에서 특정 필드 값을 눈으로 확인해야 할 때</li>
+      <li>설정 파일(package.json, tsconfig.json 등)을 수정하다 문법 오류가 났는데 어디가 문제인지 모를 때</li>
+      <li>문서나 위키에 JSON 예시를 깔끔하게 정리해서 넣고 싶을 때</li>
+      <li>네트워크 전송량을 줄이기 위해 JSON을 최소화(minify)해야 할 때</li>
+    </ul>
+    <p>사내 API 응답처럼 민감한 데이터가 포함된 JSON도 안심하고 사용할 수 있습니다. 이 도구는 자바스크립트의 내장 <code>JSON.parse / JSON.stringify</code>만 사용하여 여러분의 브라우저 안에서 모든 처리를 끝내며, 입력 내용은 어디에도 저장되거나 전송되지 않습니다.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var input = document.getElementById("jsonInput");
+  var output = document.getElementById("jsonOutput");
+  var msg = document.getElementById("msg");
+
+  function parseOrError() {
+    try {
+      return { ok: true, data: JSON.parse(input.value) };
+    } catch (e) {
+      var m = /position (\d+)/.exec(e.message);
+      var detail = "";
+      if (m) {
+        var pos = parseInt(m[1], 10);
+        var upTo = input.value.slice(0, pos);
+        var line = upTo.split("\n").length;
+        var col = pos - upTo.lastIndexOf("\n");
+        detail = " (약 " + line + "번째 줄, " + col + "번째 문자 근처)";
+      }
+      return { ok: false, error: "❌ JSON 문법 오류: " + e.message + detail };
+    }
+  }
+
+  function run(indent) {
+    if (!input.value.trim()) { msg.textContent = "JSON을 입력해 주세요."; msg.className = "result-msg err"; return; }
+    var r = parseOrError();
+    if (!r.ok) { msg.textContent = r.error; msg.className = "result-msg err"; output.value = ""; return; }
+    output.value = indent === 0 ? JSON.stringify(r.data) : JSON.stringify(r.data, null, indent);
+    msg.textContent = "✅ 유효한 JSON입니다.";
+    msg.className = "result-msg ok";
+  }
+
+  document.getElementById("btnFormat2").onclick = function () { run(2); };
+  document.getElementById("btnFormat4").onclick = function () { run(4); };
+  document.getElementById("btnMinify").onclick = function () { run(0); };
+  document.getElementById("btnValidate").onclick = function () {
+    if (!input.value.trim()) { msg.textContent = "JSON을 입력해 주세요."; msg.className = "result-msg err"; return; }
+    var r = parseOrError();
+    msg.textContent = r.ok ? "✅ 유효한 JSON입니다." : r.error;
+    msg.className = "result-msg " + (r.ok ? "ok" : "err");
+  };
+  document.getElementById("btnCopy").onclick = function () { copyText(output.value, msg); };
+  document.getElementById("btnClear").onclick = function () { input.value = ""; output.value = ""; msg.textContent = ""; };
+})();
+</script>
+</body>
+</html>

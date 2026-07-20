@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cron 표현식 생성기 - 크론탭 스케줄 만들기·해석 | DevToolbox</title>
+<meta name="description" content="분·시·일·월·요일을 선택하면 크론(cron) 표현식을 자동으로 만들어주고 한글로 의미를 해석해주는 무료 온라인 도구입니다. crontab, Jenkins, 스프링 스케줄러 작성에 유용합니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/cron-generator.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html" class="active">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>Cron 표현식 생성기</h1>
+  <p class="page-desc">각 필드를 선택하면 크론 표현식이 완성되고, 의미가 한글로 표시됩니다. (표준 5필드: 분 시 일 월 요일)</p>
+  <p class="privacy-badge">🔒 모든 처리는 브라우저에서만 이루어지며 서버로 전송되지 않습니다.</p>
+
+  <div class="card">
+    <label>자주 쓰는 프리셋</label>
+    <div class="btn-row">
+      <button class="btn secondary preset" data-cron="* * * * *">매분</button>
+      <button class="btn secondary preset" data-cron="0 * * * *">매시 정각</button>
+      <button class="btn secondary preset" data-cron="0 0 * * *">매일 자정</button>
+      <button class="btn secondary preset" data-cron="0 9 * * 1-5">평일 오전 9시</button>
+      <button class="btn secondary preset" data-cron="0 0 * * 0">매주 일요일 자정</button>
+      <button class="btn secondary preset" data-cron="0 0 1 * *">매월 1일 자정</button>
+      <button class="btn secondary preset" data-cron="*/5 * * * *">5분마다</button>
+      <button class="btn secondary preset" data-cron="0 */2 * * *">2시간마다</button>
+    </div>
+
+    <div class="cron-grid" style="margin-top:14px;">
+      <div><label for="fMin">분 (0-59)</label><input type="text" id="fMin" value="*" spellcheck="false"></div>
+      <div><label for="fHour">시 (0-23)</label><input type="text" id="fHour" value="*" spellcheck="false"></div>
+      <div><label for="fDay">일 (1-31)</label><input type="text" id="fDay" value="*" spellcheck="false"></div>
+      <div><label for="fMonth">월 (1-12)</label><input type="text" id="fMonth" value="*" spellcheck="false"></div>
+      <div><label for="fWeek">요일 (0-6, 0=일)</label><input type="text" id="fWeek" value="*" spellcheck="false"></div>
+    </div>
+
+    <label style="margin-top:16px;">완성된 표현식</label>
+    <div class="output-box" id="cronOut" style="font-size:1.2rem;text-align:center;">* * * * *</div>
+    <p class="result-msg ok" id="cronDesc" aria-live="polite" style="text-align:center;"></p>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn" id="btnCopy">표현식 복사</button>
+    </div>
+    <p id="msg" class="result-msg" aria-live="polite"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-top:0;">필드 문법 참고</h2>
+    <table class="simple-table">
+      <tr><th>기호</th><th>의미</th><th>예시</th></tr>
+      <tr><td>*</td><td>모든 값</td><td>매분, 매시…</td></tr>
+      <tr><td>숫자</td><td>특정 값</td><td>0 = 정각/자정</td></tr>
+      <tr><td>a-b</td><td>범위</td><td>1-5 = 월~금</td></tr>
+      <tr><td>a,b,c</td><td>목록</td><td>0,30 = 0분과 30분</td></tr>
+      <tr><td>*/n</td><td>n 간격마다</td><td>*/10 = 10분마다</td></tr>
+    </table>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>다섯 개의 입력칸(분·시·일·월·요일)에 값을 넣으면 아래에 완성된 크론 표현식과 한글 해석이 실시간으로 표시됩니다. 직접 입력하는 대신 <strong>프리셋 버튼</strong>을 눌러 "매일 자정", "평일 오전 9시" 같은 자주 쓰는 패턴에서 시작해 수정할 수도 있습니다. 각 필드에는 <code>*</code>(모든 값), <code>1-5</code>(범위), <code>0,30</code>(목록), <code>*/10</code>(간격) 문법을 조합해서 쓸 수 있으며, 요일은 0(일요일)부터 6(토요일)까지입니다. 완성된 표현식은 <strong>표현식 복사</strong> 버튼으로 바로 복사해 crontab에 붙여넣으세요.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>리눅스 crontab에 백업 스크립트 스케줄을 등록할 때</li>
+      <li>Jenkins, GitHub Actions(schedule), Airflow 등 CI/배치 도구의 실행 주기를 설정할 때</li>
+      <li>스프링 <code>@Scheduled</code>나 node-cron의 표현식을 만들 때 (초 필드가 있는 6필드 문법은 맨 앞에 초를 추가하세요)</li>
+      <li>운영 중인 배치의 크론 표현식이 정확히 언제 실행되는 건지 해석해야 할 때</li>
+      <li>"평일 점심시간만 제외하고 실행" 같은 복잡한 조건을 검증할 때</li>
+    </ul>
+    <p>크론 표현식은 시스템마다 시간대(타임존) 기준이 다르다는 점에 주의하세요. 서버가 UTC로 동작한다면 한국 시간 오전 9시는 <code>0 0 * * *</code>(UTC 0시)로 지정해야 합니다. 이 도구의 모든 계산은 브라우저에서만 이루어집니다.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var fields = ["fMin", "fHour", "fDay", "fMonth", "fWeek"].map(function (id) { return document.getElementById(id); });
+  var out = document.getElementById("cronOut");
+  var desc = document.getElementById("cronDesc");
+  var msg = document.getElementById("msg");
+  var WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+
+  function fieldDesc(v, unit, names) {
+    v = v.trim();
+    function nm(n) { return names ? (names[parseInt(n, 10)] || n) : n; }
+    if (v === "*") return null;
+    var step = /^\*\/(\d+)$/.exec(v);
+    if (step) return step[1] + unit.step;
+    var range = /^(\d+)-(\d+)(\/(\d+))?$/.exec(v);
+    if (range) {
+      var base = nm(range[1]) + unit.label + "부터 " + nm(range[2]) + unit.label + "까지";
+      return range[4] ? base + " " + range[4] + unit.step : base;
+    }
+    if (/^[\d,]+$/.test(v)) {
+      return v.split(",").map(function (n) { return nm(n) + unit.label; }).join(", ") + "에";
+    }
+    return v + " (" + unit.name + ")";
+  }
+
+  function describe(parts) {
+    try {
+      var d = [];
+      var month = fieldDesc(parts[3], { label: "월", step: "개월마다", name: "월" });
+      var day = fieldDesc(parts[2], { label: "일", step: "일마다", name: "일" });
+      var week = fieldDesc(parts[4], { label: "요일", step: "요일 간격마다", name: "요일" }, WEEK);
+      var hour = fieldDesc(parts[1], { label: "시", step: "시간마다", name: "시" });
+      var min = fieldDesc(parts[0], { label: "분", step: "분마다", name: "분" });
+      if (month) d.push(month);
+      if (day) d.push(day);
+      if (week) d.push(week.replace(/에$/, ""));
+      if (hour) d.push(hour);
+      d.push(min || (hour ? "0분에" : "매분"));
+      var prefix = (!month && !day && !week) ? (hour ? "매일 " : "") : "";
+      return "» " + prefix + d.join(" ") + " 실행";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function valid(v, min, max) {
+    return /^(\*|\*\/\d+|\d+(-\d+)?(\/\d+)?(,\d+(-\d+)?(\/\d+)?)*)$/.test(v.trim());
+  }
+
+  function update() {
+    var parts = fields.map(function (f) { return f.value.trim() || "*"; });
+    var allValid = parts.every(function (p) { return valid(p); });
+    out.textContent = parts.join(" ");
+    if (!allValid) {
+      desc.textContent = "";
+      msg.textContent = "❌ 필드 형식이 올바르지 않습니다. (*, 숫자, a-b, a,b, */n 조합만 허용)";
+      msg.className = "result-msg err";
+      return;
+    }
+    msg.textContent = "";
+    desc.textContent = describe(parts);
+  }
+
+  fields.forEach(function (f) { f.addEventListener("input", update); });
+
+  document.querySelectorAll(".preset").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var parts = btn.dataset.cron.split(" ");
+      fields.forEach(function (f, i) { f.value = parts[i]; });
+      update();
+    });
+  });
+
+  document.getElementById("btnCopy").onclick = function () { copyText(out.textContent, msg); };
+  update();
+})();
+</script>
+</body>
+</html>

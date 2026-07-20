@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정규식 테스터 - 온라인 정규표현식 실시간 매칭 확인 | DevToolbox</title>
+<meta name="description" content="자바스크립트 정규표현식을 실시간으로 테스트하는 무료 온라인 정규식 테스터입니다. 매칭 결과 하이라이트, 캡처 그룹 표시, 플래그(g, i, m 등) 지원. 브라우저에서만 처리됩니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/regex-tester.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html" class="active">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>정규식 테스터</h1>
+  <p class="page-desc">정규표현식과 테스트 문자열을 입력하면 매칭 결과를 실시간으로 하이라이트합니다.</p>
+  <p class="privacy-badge">🔒 입력한 패턴과 텍스트는 브라우저에서만 처리되며 서버로 전송되지 않습니다.</p>
+
+  <div class="card">
+    <div class="two-col">
+      <div>
+        <label for="pattern">정규식 패턴</label>
+        <input type="text" id="pattern" placeholder="예: \d{3}-\d{4}" spellcheck="false" autocomplete="off">
+      </div>
+      <div>
+        <label for="flags">플래그 (g, i, m, s, u)</label>
+        <input type="text" id="flags" value="g" spellcheck="false" autocomplete="off">
+      </div>
+    </div>
+    <p id="msg" class="result-msg" aria-live="polite"></p>
+    <label for="testText" style="margin-top:10px;">테스트 문자열</label>
+    <textarea id="testText" placeholder="정규식을 테스트할 텍스트를 입력하세요.&#10;예: 문의 전화는 010-1234-5678 또는 02-987-6543 입니다." spellcheck="false"></textarea>
+    <label style="margin-top:14px;">매칭 결과 하이라이트</label>
+    <div class="output-box" id="highlight" aria-live="polite"></div>
+    <label style="margin-top:14px;">매치 목록</label>
+    <div class="output-box" id="matchList"></div>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>패턴 입력칸에 정규표현식을(슬래시 <code>/ /</code> 없이) 입력하고, 플래그 칸에 <code>g</code>(전체 검색), <code>i</code>(대소문자 무시), <code>m</code>(여러 줄) 등을 지정하세요. 테스트 문자열을 입력하면 타이핑과 동시에 매칭되는 부분이 하이라이트로 표시되고, 아래 매치 목록에는 각 매치의 위치와 캡처 그룹 값이 함께 나타납니다. 패턴에 문법 오류가 있으면 오류 메시지가 표시되므로 어디가 잘못되었는지 바로 알 수 있습니다. 이 도구는 자바스크립트(ECMAScript) 정규식 문법을 기준으로 동작합니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>이메일·전화번호·주민번호 형식 검증 패턴을 만들 때 실제 데이터로 미리 검증</li>
+      <li>로그 파일에서 특정 패턴(IP 주소, 에러 코드 등)을 추출하는 정규식을 설계할 때</li>
+      <li>코드 리뷰 중 만난 복잡한 정규식이 실제로 무엇에 매칭되는지 확인할 때</li>
+      <li>에디터의 찾기/바꾸기에 쓸 정규식을 미리 테스트할 때</li>
+      <li>캡처 그룹이 의도한 값을 제대로 잡아내는지 확인할 때</li>
+    </ul>
+    <p>정규식 실행은 브라우저의 자바스크립트 엔진에서 직접 이루어지며, 테스트에 사용한 텍스트와 패턴은 어디에도 저장되거나 전송되지 않습니다. 실제 고객 데이터 샘플로 테스트해도 안전합니다.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var patternEl = document.getElementById("pattern");
+  var flagsEl = document.getElementById("flags");
+  var textEl = document.getElementById("testText");
+  var hlEl = document.getElementById("highlight");
+  var listEl = document.getElementById("matchList");
+  var msg = document.getElementById("msg");
+
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function run() {
+    var pat = patternEl.value;
+    var text = textEl.value;
+    hlEl.innerHTML = "";
+    listEl.textContent = "";
+    msg.textContent = "";
+    if (!pat || !text) return;
+
+    var re;
+    try {
+      re = new RegExp(pat, flagsEl.value);
+    } catch (e) {
+      msg.textContent = "❌ 정규식 오류: " + e.message;
+      msg.className = "result-msg err";
+      return;
+    }
+
+    var matches = [];
+    if (re.global) {
+      var m, guard = 0;
+      while ((m = re.exec(text)) !== null && guard++ < 10000) {
+        matches.push(m);
+        if (m.index === re.lastIndex) re.lastIndex++;
+      }
+    } else {
+      var single = re.exec(text);
+      if (single) matches.push(single);
+    }
+
+    // 하이라이트 렌더링
+    var html = "", last = 0;
+    matches.forEach(function (mm) {
+      html += esc(text.slice(last, mm.index));
+      html += '<mark class="rx">' + esc(mm[0] === "" ? "∅" : mm[0]) + "</mark>";
+      last = mm.index + mm[0].length;
+    });
+    html += esc(text.slice(last));
+    hlEl.innerHTML = html || "(테스트 문자열 없음)";
+
+    if (matches.length === 0) {
+      msg.textContent = "매칭되는 부분이 없습니다.";
+      msg.className = "result-msg err";
+      return;
+    }
+    msg.textContent = "✅ " + matches.length + "개 매칭";
+    msg.className = "result-msg ok";
+
+    listEl.textContent = matches.slice(0, 200).map(function (mm, i) {
+      var line = "#" + (i + 1) + " [위치 " + mm.index + "] \"" + mm[0] + "\"";
+      if (mm.length > 1) {
+        line += "\n   그룹: " + Array.prototype.slice.call(mm, 1).map(function (g, gi) {
+          return "$" + (gi + 1) + "=" + (g === undefined ? "(없음)" : "\"" + g + "\"");
+        }).join(", ");
+      }
+      return line;
+    }).join("\n");
+  }
+
+  patternEl.addEventListener("input", run);
+  flagsEl.addEventListener("input", run);
+  textEl.addEventListener("input", run);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>글자수 세기 · 바이트 계산기 - 공백 포함/제외 실시간 카운터 | DevToolbox</title>
+<meta name="description" content="글자 수(공백 포함/제외), 단어 수, 줄 수, UTF-8 바이트 수를 실시간으로 계산하는 무료 온라인 글자수 세기 도구입니다. 자기소개서, SMS, DB 컬럼 길이 확인에 유용합니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/char-counter.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html" class="active">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>글자수 · 바이트 세기</h1>
+  <p class="page-desc">텍스트를 입력하면 글자 수, 단어 수, 바이트 수를 실시간으로 계산합니다.</p>
+  <p class="privacy-badge">🔒 입력한 텍스트는 브라우저에서만 처리되며 서버로 전송되지 않습니다.</p>
+
+  <div class="card">
+    <label for="txt">텍스트 입력</label>
+    <textarea id="txt" placeholder="여기에 텍스트를 입력하거나 붙여넣으세요." spellcheck="false"></textarea>
+    <div class="btn-row">
+      <button class="btn secondary" id="btnClear">지우기</button>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="num" id="cChars">0</div><div class="lbl">글자 수 (공백 포함)</div></div>
+      <div class="stat-item"><div class="num" id="cCharsNoSpace">0</div><div class="lbl">글자 수 (공백 제외)</div></div>
+      <div class="stat-item"><div class="num" id="cWords">0</div><div class="lbl">단어 수</div></div>
+      <div class="stat-item"><div class="num" id="cLines">0</div><div class="lbl">줄 수</div></div>
+      <div class="stat-item"><div class="num" id="cUtf8">0</div><div class="lbl">바이트 (UTF-8)</div></div>
+      <div class="stat-item"><div class="num" id="cEuc">0</div><div class="lbl">바이트 (한글 2byte 기준)</div></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>입력창에 텍스트를 입력하거나 붙여넣으면 아래 통계가 즉시 갱신됩니다. <strong>글자 수</strong>는 공백 포함/제외 두 가지로 표시되며, <strong>바이트 수</strong>는 UTF-8 인코딩 기준(한글 3바이트)과 EUC-KR 등 한글 2바이트 기준 두 가지를 함께 보여줍니다. 웹 서비스 대부분은 UTF-8을 사용하지만, 문자 메시지(SMS)나 일부 구형 시스템은 한글을 2바이트로 계산하므로 상황에 맞는 값을 참고하세요. 줄 수와 단어 수도 함께 계산되어 긴 글의 분량을 파악할 때 편리합니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>자기소개서·이력서의 글자 수 제한(공백 포함/제외)을 맞춰야 할 때</li>
+      <li>SMS(90바이트)·LMS 발송 전에 메시지 길이를 확인할 때</li>
+      <li>데이터베이스 VARCHAR 컬럼 길이 제한에 맞는지 바이트 수를 확인할 때</li>
+      <li>블로그 제목, 메타 디스크립션 등 SEO 권장 길이를 맞출 때</li>
+      <li>번역·카피라이팅 작업에서 원문과 번역문의 분량을 비교할 때</li>
+    </ul>
+    <p>글자 수 계산은 자바스크립트의 문자열 처리 기능만으로 이루어지며, 입력한 문서 내용은 절대 외부로 전송되지 않습니다. 지원서나 기밀 문서처럼 민감한 텍스트도 안심하고 붙여넣을 수 있습니다.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var txt = document.getElementById("txt");
+  var enc = new TextEncoder();
+
+  function count() {
+    var v = txt.value;
+    var chars = Array.from(v).length;
+    var noSpace = Array.from(v.replace(/\s/g, "")).length;
+    var words = v.trim() ? v.trim().split(/\s+/).length : 0;
+    var lines = v ? v.split("\n").length : 0;
+    var utf8 = enc.encode(v).length;
+    var euc = 0;
+    for (var ch of v) euc += ch.codePointAt(0) > 127 ? 2 : 1;
+    document.getElementById("cChars").textContent = chars.toLocaleString();
+    document.getElementById("cCharsNoSpace").textContent = noSpace.toLocaleString();
+    document.getElementById("cWords").textContent = words.toLocaleString();
+    document.getElementById("cLines").textContent = lines.toLocaleString();
+    document.getElementById("cUtf8").textContent = utf8.toLocaleString();
+    document.getElementById("cEuc").textContent = euc.toLocaleString();
+  }
+
+  txt.addEventListener("input", count);
+  document.getElementById("btnClear").onclick = function () { txt.value = ""; count(); };
+})();
+</script>
+</body>
+</html>
