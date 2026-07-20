@@ -324,6 +324,86 @@ mark.rx {
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
 
+/* 비밀번호 강도 바 */
+.strength-track {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.strength-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 0.2s, background 0.2s;
+}
+
+/* 마크다운 미리보기 */
+.markdown-preview {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 320px;
+  overflow-y: auto;
+  font-size: 0.92rem;
+}
+
+.markdown-preview h1, .markdown-preview h2, .markdown-preview h3 { margin-top: 0.6em; }
+.markdown-preview pre { background: var(--code-bg); padding: 10px; border-radius: 6px; overflow-x: auto; }
+.markdown-preview code {
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: "SF Mono", "Consolas", "D2Coding", monospace;
+  font-size: 0.85em;
+}
+.markdown-preview pre code { background: none; padding: 0; }
+.markdown-preview blockquote {
+  border-left: 3px solid var(--border);
+  margin: 0.6em 0;
+  padding: 0.2em 12px;
+  color: var(--muted);
+}
+.markdown-preview table { border-collapse: collapse; }
+.markdown-preview table th, .markdown-preview table td { border: 1px solid var(--border); padding: 6px 10px; }
+.markdown-preview img { max-width: 100%; }
+
+/* 색상 팔레트 스와치 */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--card);
+}
+
+.swatch .swatch-color { height: 70px; }
+
+.swatch .swatch-label {
+  padding: 8px;
+  font-size: 0.78rem;
+  text-align: center;
+  font-family: "SF Mono", "Consolas", "D2Coding", monospace;
+}
+
+.swatch .swatch-label .role {
+  color: var(--muted);
+  display: block;
+  margin-bottom: 2px;
+  font-family: inherit;
+}
+
 /* cron 필드 */
 .cron-grid {
   display: grid;

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorem Ipsum 생성기 - 더미 텍스트(임시 텍스트) 무료 생성 | DevToolbox</title>
+<meta name="description" content="문단 수를 지정해 라틴어 Lorem Ipsum 또는 한글 더미 텍스트를 생성하는 무료 온라인 도구입니다. 디자인 시안, 퍼블리싱 목업 제작에 유용하며 브라우저에서만 처리됩니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/lorem-ipsum.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+    <a href="qr-generator.html">QR코드</a>
+    <a href="password-generator.html">비밀번호 생성</a>
+    <a href="markdown-preview.html">마크다운 미리보기</a>
+    <a href="color-palette.html">색상 팔레트</a>
+    <a href="lorem-ipsum.html" class="active">Lorem Ipsum</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>Lorem Ipsum / 더미 텍스트 생성기</h1>
+  <p class="page-desc">문단 수를 지정하면 시안이나 목업에 바로 쓸 수 있는 더미 텍스트를 만들어 드립니다.</p>
+  <p class="privacy-badge">🔒 모든 생성은 브라우저에서만 이루어지며 서버로 전송되지 않습니다.</p>
+
+  <div class="card">
+    <div class="two-col">
+      <div>
+        <label for="langSel">언어</label>
+        <select id="langSel">
+          <option value="la">라틴어 (Lorem Ipsum)</option>
+          <option value="ko">한국어 더미 텍스트</option>
+        </select>
+      </div>
+      <div>
+        <label for="paraCount">문단 수 (1~20)</label>
+        <input type="number" id="paraCount" value="3" min="1" max="20">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="btnGen">생성</button>
+      <button class="btn secondary" id="btnCopy">복사</button>
+    </div>
+    <p id="msg" class="result-msg" aria-live="polite"></p>
+    <label for="out">생성된 텍스트</label>
+    <textarea id="out" readonly spellcheck="false" style="min-height:260px;"></textarea>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>언어(라틴어 Lorem Ipsum 또는 한국어)와 문단 수를 지정한 뒤 <strong>생성</strong> 버튼을 누르면, 문단마다 여러 개의 무작위 문장으로 구성된 더미 텍스트가 만들어집니다. 실제 의미가 없는 자리채움용 텍스트이므로 디자인 시안에서 폰트 크기, 줄 간격, 레이아웃의 균형만 확인할 때 적합합니다. <strong>복사</strong> 버튼으로 클립보드에 담아 디자인 툴이나 퍼블리싱 코드에 바로 붙여넣을 수 있고, 생성된 텍스트의 정확한 글자 수를 확인하고 싶다면 <a href="char-counter.html">글자수·바이트 세기</a> 도구와 함께 사용하면 편리합니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>웹·앱 디자인 시안에서 실제 카피 대신 채워 넣을 임시 텍스트가 필요할 때</li>
+      <li>퍼블리싱 작업 중 레이아웃이 다양한 텍스트 분량에서도 깨지지 않는지 테스트할 때</li>
+      <li>블로그·게시판 기능을 개발하면서 테스트용 게시글 데이터를 빠르게 채울 때</li>
+      <li>프레젠테이션이나 목업에서 텍스트 영역의 느낌만 먼저 보여주고 싶을 때</li>
+      <li>폰트·타이포그래피 조합을 테스트할 때 실제 문구에 시선이 뺏기지 않게 하고 싶을 때</li>
+    </ul>
+    <p>Lorem Ipsum은 실제 라틴어 문장이 아니라 인쇄·출판업계에서 오래전부터 자리채움용으로 써온 관용적인 텍스트이며, 한국어 더미 텍스트 옵션은 의미 없는 단어를 무작위로 조합해 비슷한 용도로 쓸 수 있게 만든 것입니다. 생성은 전적으로 브라우저에서 이루어지며 별도 데이터 전송은 없습니다.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var LATIN = ("lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis aute irure in reprehenderit voluptate velit esse cillum eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum").split(" ");
+  var KOREAN = ("텍스트 예시 디자인 레이아웃 콘텐츠 문단 확인 테스트 구성 화면 버튼 이미지 제목 본문 목록 카드 링크 배경 여백 정렬 색상 글자 크기 간격 위치 흐름 구조 요소 영역 표시 정보 입력 출력 결과 반응형 예제 데이터 자리표시자 문구 배치 항목").split(" ");
+
+  var msg = document.getElementById("msg");
+  var out = document.getElementById("out");
+
+  function pick(bank) { return bank[Math.floor(Math.random() * bank.length)]; }
+
+  function sentence(bank) {
+    var n = 6 + Math.floor(Math.random() * 9);
+    var words = [];
+    for (var i = 0; i < n; i++) words.push(pick(bank));
+    var s = words.join(" ");
+    return s.charAt(0).toUpperCase() + s.slice(1) + ".";
+  }
+
+  function paragraph(bank) {
+    var n = 4 + Math.floor(Math.random() * 5);
+    var sentences = [];
+    for (var i = 0; i < n; i++) sentences.push(sentence(bank));
+    return sentences.join(" ");
+  }
+
+  function generate() {
+    var lang = document.getElementById("langSel").value;
+    var count = Math.min(20, Math.max(1, parseInt(document.getElementById("paraCount").value, 10) || 1));
+    var bank = lang === "ko" ? KOREAN : LATIN;
+    var paras = [];
+    for (var i = 0; i < count; i++) paras.push(paragraph(bank));
+    out.value = paras.join("\n\n");
+    msg.textContent = "✅ " + count + "개 문단 생성 완료";
+    msg.className = "result-msg ok";
+  }
+
+  document.getElementById("btnGen").onclick = generate;
+  document.getElementById("btnCopy").onclick = function () { copyText(out.value, msg); };
+  generate();
+})();
+</script>
+</body>
+</html>
