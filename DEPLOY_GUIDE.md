@@ -100,16 +100,22 @@ git push
 
 ## 5단계. 네이버 서치 어드바이저 등록
 
+> ⚠️ 네이버는 경로가 붙은 URL(`.../devtoolbox/`)을 받지 않고 **호스트 단위**로만 등록됩니다.
+> 이를 위해 루트 주소용 저장소 `moraenymph-oss.github.io` 를 별도로 만들어 두었습니다
+> (로컬: `d:\ai_portal_demo\moraenymph-oss.github.io`, 루트 접속 시 DevToolbox로 자동 이동).
+
 1. https://searchadvisor.naver.com 접속 → 네이버 로그인 → 상단 **웹마스터 도구** 클릭
-2. 사이트 등록 입력칸에 `https://moraenymph-oss.github.io/devtoolbox/` 입력 → 등록
-3. 소유 확인 방식 중 **"HTML 태그"** 선택
-4. 아래처럼 생긴 메타 태그를 복사:
-   ```html
-   <meta name="naver-site-verification" content="여기에긴문자열" />
+2. 사이트 등록 입력칸에 **`https://moraenymph-oss.github.io`** 입력 (경로 없이 호스트만) → 등록
+3. 소유 확인 방식 중 **"HTML 파일 업로드"** 선택 → `naver********.html` 파일 다운로드
+4. 그 파일을 **루트 저장소**(`d:\ai_portal_demo\moraenymph-oss.github.io`)에 복사 후 커밋 & 푸시:
+   ```bash
+   cd d:\ai_portal_demo\moraenymph-oss.github.io
+   cp %USERPROFILE%\Downloads\naver********.html .
+   git add -A && git commit -m "네이버 소유 확인 파일 추가" && git push
    ```
-5. 구글 때와 마찬가지로 `index.html`의 `<head>`에 붙여넣고 커밋 & 푸시
-6. 배포 반영 후 서치 어드바이저에서 **소유확인** 클릭
-7. **사이트맵 제출**: 등록된 사이트 클릭 → 왼쪽 메뉴 **요청 > 사이트맵 제출** → `https://moraenymph-oss.github.io/devtoolbox/sitemap.xml` 입력 → 확인
+5. 1~2분 뒤 `https://moraenymph-oss.github.io/naver********.html` 이 열리는지 확인
+6. 서치 어드바이저에서 **소유확인** 클릭
+7. **사이트맵 제출**: 등록된 사이트 클릭 → 왼쪽 메뉴 **요청 > 사이트맵 제출** → `https://moraenymph-oss.github.io/devtoolbox/sitemap.xml` 입력 → 확인 (호스트로 등록해도 하위 경로 사이트맵 제출 가능)
 8. **수집 요청(선택, 권장)**: **요청 > 웹 페이지 수집**에서 홈과 주요 도구 페이지 URL을 하나씩 넣어 수집 요청
 
 ---
