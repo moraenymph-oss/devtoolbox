@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이미지 압축기 - 사진 용량·크기 줄이기 온라인 도구 | DevToolbox</title>
+<meta name="description" content="사진 파일의 용량과 가로·세로 크기를 브라우저에서 바로 줄여주는 무료 온라인 이미지 압축기입니다. JPEG·PNG·WebP 변환, 품질 조절, 원클릭 다운로드를 지원하며 서버 업로드 없이 안전합니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/image-compressor.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"원본 이미지가 서버에 업로드되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 모든 처리는 브라우저의 Canvas 기능으로 이루어지며 이미지는 어디로도 전송되지 않습니다."}},
+{"@type":"Question","name":"어떤 출력 형식을 선택해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"일반 사진은 JPEG나 WebP가 용량 대비 화질이 좋고, 투명 배경이나 선명한 경계가 필요한 이미지는 PNG를 유지하는 것이 좋습니다."}},
+{"@type":"Question","name":"품질을 낮췄는데 용량이 줄지 않아요.","acceptedAnswer":{"@type":"Answer","text":"PNG는 무손실 압축이라 품질 슬라이더가 적용되지 않습니다. 용량을 더 줄이려면 출력 형식을 JPEG나 WebP로 바꿔보세요."}},
+{"@type":"Question","name":"여러 장을 한 번에 압축할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"현재는 한 번에 한 장씩 처리할 수 있습니다."}}
+]}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+    <a href="qr-generator.html">QR코드</a>
+    <a href="password-generator.html">비밀번호 생성</a>
+    <a href="markdown-preview.html">마크다운 미리보기</a>
+    <a href="color-palette.html">색상 팔레트</a>
+    <a href="lorem-ipsum.html">Lorem Ipsum</a>
+    <a href="image-compressor.html" class="active">이미지 압축</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>이미지 압축기</h1>
+  <p class="page-desc">사진 파일의 용량과 가로·세로 크기를 줄여 웹사이트, 메일, 메신저에 가볍게 올리세요.</p>
+  <p class="privacy-badge">🔒 이미지는 브라우저에서만 처리되며 서버로 업로드되지 않습니다.</p>
+
+  <div class="card">
+    <label for="fileInput">이미지 선택</label>
+    <div class="dropzone" id="dropzone">
+      <input type="file" id="fileInput" accept="image/*">
+      <p id="dropzoneText">클릭하거나 이미지를 여기로 끌어다 놓으세요 (JPG, PNG, WebP)</p>
+    </div>
+
+    <div id="optionsArea" style="display:none;">
+      <div class="two-col" style="margin-top:16px;">
+        <div>
+          <label for="maxWidth">최대 가로폭 (px, 비워두면 원본 유지)</label>
+          <input type="number" id="maxWidth" placeholder="예: 1200" min="1">
+        </div>
+        <div>
+          <label for="formatSel">출력 형식</label>
+          <select id="formatSel">
+            <option value="original">원본 형식 유지</option>
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+        </div>
+      </div>
+      <label for="qualityRange" style="margin-top:12px;">품질: <span id="qualityVal">80</span>% <span style="font-weight:400;color:var(--muted);">(PNG는 적용되지 않음)</span></label>
+      <input type="range" id="qualityRange" min="10" max="100" value="80" style="width:100%;">
+      <div class="btn-row">
+        <button class="btn" id="btnProcess">압축하기</button>
+        <button class="btn secondary" id="btnDownload" disabled>다운로드</button>
+      </div>
+    </div>
+    <p id="msg" class="result-msg" aria-live="polite"></p>
+
+    <div class="image-compare" id="compareArea" style="display:none;">
+      <figure>
+        <img id="beforeImg" alt="원본 이미지">
+        <figcaption id="beforeInfo"></figcaption>
+      </figure>
+      <figure>
+        <img id="afterImg" alt="압축된 이미지">
+        <figcaption id="afterInfo"></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+
+  <article class="tool-article">
+    <h2>사용법</h2>
+    <p>이미지 선택 영역을 클릭하거나 파일을 끌어다 놓아 압축할 사진을 선택하세요. 원본 사진의 크기와 용량이 표시되면, 필요에 따라 <strong>최대 가로폭</strong>을 지정해 리사이즈하고 <strong>출력 형식</strong>(JPEG/PNG/WebP)과 <strong>품질</strong>을 조절한 뒤 압축하기 버튼을 누릅니다. 결과 미리보기에서 변환된 사진의 크기·용량과 원본 대비 감소율을 확인할 수 있으며, 다운로드 버튼으로 결과 파일을 바로 저장할 수 있습니다. 일반 사진은 JPEG나 WebP로, 투명 배경이 필요한 이미지는 PNG로 저장하는 것이 일반적입니다.</p>
+    <h2>이런 상황에서 쓰세요</h2>
+    <ul>
+      <li>블로그나 홈페이지에 올릴 사진 용량을 줄여 로딩 속도를 개선할 때</li>
+      <li>이메일 첨부 용량 제한을 넘어서는 사진을 가볍게 줄일 때</li>
+      <li>메신저나 게시판에 화질 손실을 최소화하면서 적당한 크기로 올릴 때</li>
+      <li>웹사이트 성능 최적화를 위해 이미지를 WebP 형식으로 변환할 때</li>
+      <li>프로필 사진이나 썸네일용으로 정해진 가로폭에 맞춰 리사이즈할 때</li>
+    </ul>
+    <p>이미지 압축과 리사이즈는 브라우저의 Canvas API만으로 처리되며, 선택한 사진은 어떤 서버로도 업로드되지 않습니다. 개인 사진이나 미공개 자료도 안심하고 압축할 수 있습니다.</p>
+  </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 원본 이미지가 서버에 업로드되나요?</summary>
+      <p>A. 아니요. 모든 처리는 브라우저의 Canvas 기능으로 이루어지며 이미지는 어디로도 전송되지 않습니다.</p>
+    </details>
+    <details>
+      <summary>Q. 어떤 출력 형식을 선택해야 하나요?</summary>
+      <p>A. 일반 사진은 JPEG나 WebP가 용량 대비 화질이 좋고, 투명 배경이나 선명한 경계가 필요한 이미지는 PNG를 유지하는 것이 좋습니다.</p>
+    </details>
+    <details>
+      <summary>Q. 품질을 낮췄는데 용량이 줄지 않아요.</summary>
+      <p>A. PNG는 무손실 압축이라 품질 슬라이더가 적용되지 않습니다. 용량을 더 줄이려면 출력 형식을 JPEG나 WebP로 바꿔보세요.</p>
+    </details>
+    <details>
+      <summary>Q. 여러 장을 한 번에 압축할 수 있나요?</summary>
+      <p>A. 현재는 한 번에 한 장씩 처리할 수 있습니다.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var fileInput = document.getElementById("fileInput");
+  var dropzone = document.getElementById("dropzone");
+  var dropzoneText = document.getElementById("dropzoneText");
+  var optionsArea = document.getElementById("optionsArea");
+  var maxWidth = document.getElementById("maxWidth");
+  var formatSel = document.getElementById("formatSel");
+  var qualityRange = document.getElementById("qualityRange");
+  var qualityVal = document.getElementById("qualityVal");
+  var msg = document.getElementById("msg");
+  var compareArea = document.getElementById("compareArea");
+  var beforeImg = document.getElementById("beforeImg");
+  var afterImg = document.getElementById("afterImg");
+  var beforeInfo = document.getElementById("beforeInfo");
+  var afterInfo = document.getElementById("afterInfo");
+  var btnProcess = document.getElementById("btnProcess");
+  var btnDownload = document.getElementById("btnDownload");
+
+  var currentFile = null;
+  var currentImg = null;
+
+  function fmtSize(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / 1024 / 1024).toFixed(2) + " MB";
+  }
+
+  function ok(t) { msg.textContent = t; msg.className = "result-msg ok"; }
+  function err(t) { msg.textContent = t; msg.className = "result-msg err"; }
+
+  function handleFile(file) {
+    if (!file || file.type.indexOf("image/") !== 0) { err("❌ 이미지 파일을 선택해 주세요."); return; }
+    currentFile = file;
+    var img = new Image();
+    img.onload = function () {
+      currentImg = img;
+      dropzoneText.textContent = file.name + " 선택됨 (다른 파일을 놓으면 교체됩니다)";
+      optionsArea.style.display = "block";
+      compareArea.style.display = "grid";
+      beforeImg.src = img.src;
+      beforeInfo.textContent = "원본: " + img.naturalWidth + "×" + img.naturalHeight + " · " + fmtSize(file.size);
+      afterImg.src = "";
+      afterInfo.textContent = "";
+      btnDownload.disabled = true;
+      msg.textContent = "";
+    };
+    img.onerror = function () { err("❌ 이미지를 불러오지 못했습니다."); };
+    img.src = URL.createObjectURL(file);
+  }
+
+  fileInput.addEventListener("change", function () { handleFile(fileInput.files[0]); });
+  dropzone.addEventListener("click", function () { fileInput.click(); });
+  dropzone.addEventListener("dragover", function (e) { e.preventDefault(); dropzone.classList.add("dragover"); });
+  dropzone.addEventListener("dragleave", function () { dropzone.classList.remove("dragover"); });
+  dropzone.addEventListener("drop", function (e) {
+    e.preventDefault();
+    dropzone.classList.remove("dragover");
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  qualityRange.addEventListener("input", function () { qualityVal.textContent = qualityRange.value; });
+
+  function extFor(mime) {
+    if (mime === "image/png") return "png";
+    if (mime === "image/webp") return "webp";
+    return "jpg";
+  }
+
+  btnProcess.onclick = function () {
+    if (!currentImg || !currentFile) { err("❌ 먼저 이미지를 선택해 주세요."); return; }
+    var w = currentImg.naturalWidth, h = currentImg.naturalHeight;
+    var mw = parseInt(maxWidth.value, 10);
+    if (mw && mw > 0 && mw < w) {
+      h = Math.round(h * (mw / w));
+      w = mw;
+    }
+    var canvas = document.createElement("canvas");
+    canvas.width = w; canvas.height = h;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(currentImg, 0, 0, w, h);
+
+    var format = formatSel.value === "original" ? (currentFile.type || "image/jpeg") : formatSel.value;
+    var quality = parseInt(qualityRange.value, 10) / 100;
+
+    canvas.toBlob(function (blob) {
+      if (!blob) { err("❌ 변환에 실패했습니다. 다른 형식을 선택해 보세요."); return; }
+      var url = URL.createObjectURL(blob);
+      afterImg.src = url;
+      var reduction = Math.round((1 - blob.size / currentFile.size) * 100);
+      afterInfo.textContent = "결과: " + w + "×" + h + " · " + fmtSize(blob.size) +
+        (reduction > 0 ? " (원본보다 " + reduction + "% 감소)" : reduction < 0 ? " (원본보다 " + Math.abs(reduction) + "% 증가)" : "");
+      btnDownload.disabled = false;
+      btnDownload.onclick = function () {
+        var a = document.createElement("a");
+        a.href = url;
+        var base = currentFile.name.replace(/\.[^.]+$/, "");
+        a.download = base + "-compressed." + extFor(format);
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+      ok("✅ 변환이 완료되었습니다.");
+    }, format, quality);
+  };
+})();
+</script>
+</body>
+</html>
