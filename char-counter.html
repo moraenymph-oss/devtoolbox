@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/char-counter.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"공백 포함/제외 글자 수는 왜 다르게 표시되나요?","acceptedAnswer":{"@type":"Answer","text":"자기소개서 등에서 글자 수 제한 기준이 공백 포함/제외로 다를 수 있어 두 값을 함께 제공합니다."}},
+{"@type":"Question","name":"UTF-8 바이트와 2바이트 기준 바이트가 다른 이유는?","acceptedAnswer":{"@type":"Answer","text":"UTF-8은 한글을 3바이트로 인코딩하는 반면, EUC-KR 계열 시스템은 한글을 2바이트로 계산하기 때문입니다."}},
+{"@type":"Question","name":"이모지도 정확히 세어지나요?","acceptedAnswer":{"@type":"Answer","text":"네, 서로게이트 페어를 고려한 코드 포인트 기준으로 계산하므로 이모지도 올바르게 한 글자로 처리됩니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -72,6 +79,22 @@
     </ul>
     <p>글자 수 계산은 자바스크립트의 문자열 처리 기능만으로 이루어지며, 입력한 문서 내용은 절대 외부로 전송되지 않습니다. 지원서나 기밀 문서처럼 민감한 텍스트도 안심하고 붙여넣을 수 있습니다. 분량 테스트용 임시 텍스트가 필요하다면 <a href="lorem-ipsum.html">Lorem Ipsum 생성기</a>도 참고하세요.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 공백 포함/제외 글자 수는 왜 다르게 표시되나요?</summary>
+      <p>A. 자기소개서 등에서 글자 수 제한 기준이 공백 포함/제외로 다를 수 있어 두 값을 함께 제공합니다.</p>
+    </details>
+    <details>
+      <summary>Q. UTF-8 바이트와 2바이트 기준 바이트가 다른 이유는?</summary>
+      <p>A. UTF-8은 한글을 3바이트로 인코딩하는 반면, EUC-KR 계열 시스템은 한글을 2바이트로 계산하기 때문입니다. SMS 등 구형 시스템은 후자를 기준으로 삼는 경우가 많습니다.</p>
+    </details>
+    <details>
+      <summary>Q. 이모지도 정확히 세어지나요?</summary>
+      <p>A. 네, 서로게이트 페어를 고려한 코드 포인트 기준으로 계산하므로 이모지도 올바르게 한 글자로 처리됩니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/markdown-preview.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"표(table)나 체크리스트도 지원하나요?","acceptedAnswer":{"@type":"Answer","text":"네, marked.js 라이브러리가 GitHub 마크다운과 유사한 확장 문법 대부분을 지원합니다."}},
+{"@type":"Question","name":"이미지가 미리보기에 안 보이는 이유는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"마크다운의 이미지 문법은 접근 가능한 이미지 URL이 필요합니다. 로컬 파일 경로는 브라우저에서 직접 열 수 없습니다."}},
+{"@type":"Question","name":"HTML 복사 결과를 블로그 에디터에 붙여넣어도 되나요?","acceptedAnswer":{"@type":"Answer","text":"대부분의 에디터는 HTML 붙여넣기를 지원하지만, 에디터별로 서식이 다르게 적용될 수 있습니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -74,6 +81,22 @@
     </ul>
     <p>입력한 마크다운은 브라우저 안에서만 HTML로 변환되며 어떤 서버로도 전송되지 않습니다. 사내 문서나 미공개 원고처럼 민감한 내용도 안심하고 미리 볼 수 있습니다. 다만 렌더링 라이브러리 코드 자체는 CDN에서 최초 한 번 불러옵니다.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 표(table)나 체크리스트도 지원하나요?</summary>
+      <p>A. 네, marked.js 라이브러리가 GitHub 마크다운과 유사한 확장 문법 대부분을 지원합니다.</p>
+    </details>
+    <details>
+      <summary>Q. 이미지가 미리보기에 안 보이는 이유는 무엇인가요?</summary>
+      <p>A. 마크다운의 이미지 문법은 접근 가능한 이미지 URL이 필요합니다. 로컬 파일 경로는 브라우저에서 직접 열 수 없습니다.</p>
+    </details>
+    <details>
+      <summary>Q. HTML 복사 결과를 블로그 에디터에 붙여넣어도 되나요?</summary>
+      <p>A. 대부분의 에디터는 HTML 붙여넣기를 지원하지만, 에디터별로 서식이 다르게 적용될 수 있습니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

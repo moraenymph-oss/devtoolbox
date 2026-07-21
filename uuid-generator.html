@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/uuid-generator.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"UUID가 중복될 가능성이 있나요?","acceptedAnswer":{"@type":"Answer","text":"UUID v4는 122비트의 무작위성을 가져 실무적으로 중복될 확률이 거의 0에 가깝습니다."}},
+{"@type":"Question","name":"하이픈을 제거해도 되나요?","acceptedAnswer":{"@type":"Answer","text":"네, 일부 시스템은 하이픈 없는 32자리 형식을 요구하므로 옵션으로 제공합니다."}},
+{"@type":"Question","name":"생성된 UUID가 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 화면에만 표시되고 서버에 저장되지 않으므로, 새로고침하면 같은 값을 다시 볼 수 없습니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -83,6 +90,22 @@
     </ul>
     <p>UUID v4는 122비트의 무작위성을 가지므로 실무적으로 중복 걱정 없이 사용할 수 있습니다. 생성된 값은 화면에만 표시될 뿐 어디에도 저장·전송되지 않으므로, 새로고침하면 같은 값을 다시 볼 수 없다는 점만 유의하세요. 비슷한 방식의 안전한 난수 기반 값이 필요하다면 <a href="password-generator.html">비밀번호 생성기</a>도 사용해 보세요.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. UUID가 중복될 가능성이 있나요?</summary>
+      <p>A. UUID v4는 122비트의 무작위성을 가져 실무적으로 중복될 확률이 거의 0에 가깝습니다.</p>
+    </details>
+    <details>
+      <summary>Q. 하이픈을 제거해도 되나요?</summary>
+      <p>A. 네, 일부 시스템은 하이픈 없는 32자리 형식을 요구하므로 옵션으로 제공합니다.</p>
+    </details>
+    <details>
+      <summary>Q. 생성된 UUID가 저장되나요?</summary>
+      <p>A. 아니요. 화면에만 표시되고 서버에 저장되지 않으므로, 새로고침하면 같은 값을 다시 볼 수 없습니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

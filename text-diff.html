@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/text-diff.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"어떤 알고리즘으로 텍스트를 비교하나요?","acceptedAnswer":{"@type":"Answer","text":"git diff와 동일한 원리인 최장 공통 부분 수열(LCS) 알고리즘을 사용해 실제로 바뀐 부분만 정확히 찾아냅니다."}},
+{"@type":"Question","name":"단어 단위 비교도 되나요?","acceptedAnswer":{"@type":"Answer","text":"현재는 줄 단위 비교만 지원합니다. 한 줄 안의 세부 차이는 추가·삭제로 표시된 줄을 직접 비교해서 확인해 주세요."}},
+{"@type":"Question","name":"아주 긴 텍스트도 비교할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"브라우저 성능에 따라 다르지만 각 텍스트 2만 줄 이하를 권장합니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -76,6 +83,22 @@
     </ul>
     <p>git이 설치되지 않은 환경이나 저장소 밖의 파일을 비교할 때 특히 유용합니다. 계약서, 소스 코드처럼 민감한 내용도 브라우저 밖으로 나가지 않으므로 안심하고 비교하세요. 마크다운 문서의 두 버전을 비교한 뒤 실제 렌더링 결과까지 확인하려면 <a href="markdown-preview.html">마크다운 미리보기</a>도 유용합니다.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 어떤 알고리즘으로 텍스트를 비교하나요?</summary>
+      <p>A. git diff와 동일한 원리인 최장 공통 부분 수열(LCS) 알고리즘을 사용해 실제로 바뀐 부분만 정확히 찾아냅니다.</p>
+    </details>
+    <details>
+      <summary>Q. 단어 단위 비교도 되나요?</summary>
+      <p>A. 현재는 줄 단위 비교만 지원합니다. 한 줄 안의 세부 차이는 추가·삭제로 표시된 줄을 직접 비교해서 확인해 주세요.</p>
+    </details>
+    <details>
+      <summary>Q. 아주 긴 텍스트도 비교할 수 있나요?</summary>
+      <p>A. 브라우저 성능에 따라 다르지만 각 텍스트 2만 줄 이하를 권장합니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

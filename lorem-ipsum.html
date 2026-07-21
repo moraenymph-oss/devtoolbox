@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/lorem-ipsum.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"한국어 더미 텍스트는 실제 문장인가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 의미 없는 단어를 무작위로 조합한 자리채움용 텍스트입니다."}},
+{"@type":"Question","name":"문단당 문장 수를 조절할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"현재는 자동으로 4~8문장 사이에서 무작위로 생성됩니다."}},
+{"@type":"Question","name":"왜 Lorem Ipsum은 라틴어처럼 보이나요?","acceptedAnswer":{"@type":"Answer","text":"고대 라틴 문헌 일부를 변형해 만들어진 관용적인 자리채움 텍스트이기 때문입니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -79,6 +86,22 @@
     </ul>
     <p>Lorem Ipsum은 실제 라틴어 문장이 아니라 인쇄·출판업계에서 오래전부터 자리채움용으로 써온 관용적인 텍스트이며, 한국어 더미 텍스트 옵션은 의미 없는 단어를 무작위로 조합해 비슷한 용도로 쓸 수 있게 만든 것입니다. 생성은 전적으로 브라우저에서 이루어지며 별도 데이터 전송은 없습니다.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 한국어 더미 텍스트는 실제 문장인가요?</summary>
+      <p>A. 아니요. 의미 없는 단어를 무작위로 조합한 자리채움용 텍스트입니다.</p>
+    </details>
+    <details>
+      <summary>Q. 문단당 문장 수를 조절할 수 있나요?</summary>
+      <p>A. 현재는 자동으로 4~8문장 사이에서 무작위로 생성됩니다.</p>
+    </details>
+    <details>
+      <summary>Q. 왜 Lorem Ipsum은 라틴어처럼 보이나요?</summary>
+      <p>A. 고대 라틴 문헌 일부를 변형해 만들어진 관용적인 자리채움 텍스트이기 때문입니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

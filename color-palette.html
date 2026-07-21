@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/color-palette.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"보색과 트라이어드의 차이는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"보색은 색상환에서 정반대(180도)에 있는 한 가지 색이고, 트라이어드는 색상환을 3등분한(120도씩) 두 가지 색 조합입니다."}},
+{"@type":"Question","name":"팔레트 색상은 몇 개까지 나오나요?","acceptedAnswer":{"@type":"Answer","text":"기준색을 포함해 총 8개(보색 1, 유사색 2, 트라이어드 2, 밝게/어둡게 2)를 제공합니다."}},
+{"@type":"Question","name":"접근성(명도 대비)도 고려하나요?","acceptedAnswer":{"@type":"Answer","text":"이 도구는 색상 조화만 계산하며, 텍스트 대비 등 접근성 기준은 별도로 확인해야 합니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -74,6 +81,22 @@
     </ul>
     <p>팔레트 계산은 HSL(색상·채도·명도) 색공간을 기준으로 색상환의 각도를 회전시켜 이루어지며, 모든 계산이 브라우저 안에서 즉시 처리됩니다. 입력한 색상 값이 외부로 전송되는 일은 없습니다.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 보색과 트라이어드의 차이는 무엇인가요?</summary>
+      <p>A. 보색은 색상환에서 정반대(180도)에 있는 한 가지 색이고, 트라이어드는 색상환을 3등분한(120도씩) 두 가지 색 조합입니다.</p>
+    </details>
+    <details>
+      <summary>Q. 팔레트 색상은 몇 개까지 나오나요?</summary>
+      <p>A. 기준색을 포함해 총 8개(보색 1, 유사색 2, 트라이어드 2, 밝게/어둡게 2)를 제공합니다.</p>
+    </details>
+    <details>
+      <summary>Q. 접근성(명도 대비)도 고려하나요?</summary>
+      <p>A. 이 도구는 색상 조화만 계산하며, 텍스트 대비 등 접근성 기준은 별도로 확인해야 합니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

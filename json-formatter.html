@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/json-formatter.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"JSON 정렬과 압축의 차이는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"정렬은 들여쓰기를 넣어 가독성을 높이고, 압축(Minify)은 공백과 줄바꿈을 모두 제거해 전송 용량을 줄입니다."}},
+{"@type":"Question","name":"JSON 문법 오류는 어떻게 확인하나요?","acceptedAnswer":{"@type":"Answer","text":"쉼표 누락, 작은따옴표 사용, trailing comma 등이 흔한 원인입니다. 오류 메시지에 표시되는 줄·열 번호를 확인해 해당 위치를 수정하세요."}},
+{"@type":"Question","name":"입력한 JSON이 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 이 도구는 브라우저 안에서만 처리되며, 입력한 내용은 어디에도 저장되거나 전송되지 않습니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -70,8 +77,24 @@
       <li>문서나 위키에 JSON 예시를 깔끔하게 정리해서 넣고 싶을 때</li>
       <li>네트워크 전송량을 줄이기 위해 JSON을 최소화(minify)해야 할 때</li>
     </ul>
-    <p>사내 API 응답처럼 민감한 데이터가 포함된 JSON도 안심하고 사용할 수 있습니다. 이 도구는 자바스크립트의 내장 <code>JSON.parse / JSON.stringify</code>만 사용하여 여러분의 브라우저 안에서 모든 처리를 끝내며, 입력 내용은 어디에도 저장되거나 전송되지 않습니다.</p>
+    <p>사내 API 응답처럼 민감한 데이터가 포함된 JSON도 안심하고 사용할 수 있습니다. 이 도구는 자바스크립트의 내장 <code>JSON.parse / JSON.stringify</code>만 사용하여 여러분의 브라우저 안에서 모든 처리를 끝내며, 입력 내용은 어디에도 저장되거나 전송되지 않습니다. 실제 API 응답을 확인하는 절차가 궁금하다면 <a href="guide-json-api.html">JSON 포매터로 API 응답 확인하는 법</a> 가이드를 참고하세요.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. JSON 정렬과 압축의 차이는 무엇인가요?</summary>
+      <p>A. 정렬은 들여쓰기를 넣어 가독성을 높이고, 압축(Minify)은 공백과 줄바꿈을 모두 제거해 전송 용량을 줄입니다.</p>
+    </details>
+    <details>
+      <summary>Q. "Unexpected token" 같은 오류는 왜 발생하나요?</summary>
+      <p>A. 쉼표 누락, 작은따옴표 사용, 마지막 항목 뒤 불필요한 쉼표(trailing comma) 등이 흔한 원인입니다. 오류 메시지의 줄·열 번호를 확인해 해당 위치를 고쳐보세요.</p>
+    </details>
+    <details>
+      <summary>Q. 입력한 JSON이 서버에 저장되나요?</summary>
+      <p>A. 아니요. 브라우저 안에서만 처리되며 입력 내용은 어디에도 저장되거나 전송되지 않습니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

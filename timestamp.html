@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/timestamp.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"초 단위와 밀리초 단위는 어떻게 구분하나요?","acceptedAnswer":{"@type":"Answer","text":"자릿수를 기준으로 자동 판별합니다. 일반적으로 10자리는 초, 13자리는 밀리초로 처리됩니다."}},
+{"@type":"Question","name":"변환 결과가 1970년으로 나오는 이유는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"밀리초 값을 초 단위로 잘못 입력했을 가능성이 큽니다. 입력한 숫자의 자릿수를 확인해 보세요."}},
+{"@type":"Question","name":"KST와 UTC의 차이는 얼마인가요?","acceptedAnswer":{"@type":"Answer","text":"한국 표준시(KST)는 UTC보다 9시간 빠릅니다(UTC+9)."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -82,6 +89,22 @@
     </ul>
     <p>변환은 자바스크립트 Date 객체로 브라우저 안에서만 처리됩니다. 초 단위와 밀리초 단위를 혼동하면 1970년이나 먼 미래로 계산되는 흔한 실수를 자동 판별 기능이 막아줍니다.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 초 단위와 밀리초 단위는 어떻게 구분하나요?</summary>
+      <p>A. 자릿수를 기준으로 자동 판별합니다. 일반적으로 10자리는 초, 13자리는 밀리초로 처리됩니다.</p>
+    </details>
+    <details>
+      <summary>Q. 변환 결과가 1970년으로 나오는 이유는 무엇인가요?</summary>
+      <p>A. 밀리초 값을 초 단위로 잘못 입력했을 가능성이 큽니다. 입력한 숫자의 자릿수를 확인해 보세요.</p>
+    </details>
+    <details>
+      <summary>Q. KST와 UTC의 차이는 얼마인가요?</summary>
+      <p>A. 한국 표준시(KST)는 UTC보다 9시간 빠릅니다(UTC+9).</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

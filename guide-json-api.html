@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON 포매터로 API 응답 확인하는 법 - DevToolbox 가이드</title>
+<meta name="description" content="API 응답으로 받은 압축된 JSON을 빠르게 읽기 좋게 정리하고, 원하는 필드를 찾고, 문법 오류를 확인하는 실전 방법을 소개합니다. 브라우저에서 무료로 바로 해볼 수 있습니다.">
+<link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/guide-json-api.html">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">🧰 Dev<span>Toolbox</span></a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+    </div>
+  </div>
+  <nav class="tool-nav container" aria-label="도구 메뉴">
+    <a href="json-formatter.html">JSON 포매터</a>
+    <a href="char-counter.html">글자수 세기</a>
+    <a href="base64.html">Base64</a>
+    <a href="url-encoder.html">URL 인코더</a>
+    <a href="regex-tester.html">정규식</a>
+    <a href="cron-generator.html">Cron</a>
+    <a href="timestamp.html">타임스탬프</a>
+    <a href="uuid-generator.html">UUID</a>
+    <a href="color-converter.html">색상 변환</a>
+    <a href="text-diff.html">Diff 비교</a>
+    <a href="qr-generator.html">QR코드</a>
+    <a href="password-generator.html">비밀번호 생성</a>
+    <a href="markdown-preview.html">마크다운 미리보기</a>
+    <a href="color-palette.html">색상 팔레트</a>
+    <a href="lorem-ipsum.html">Lorem Ipsum</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>JSON 포매터로 API 응답 확인하는 법</h1>
+  <p class="page-desc">개발자 도구 네트워크 탭에서 받은 압축된 JSON, 이렇게 확인하면 훨씬 빠릅니다.</p>
+
+  <article class="tool-article">
+    <h2>왜 API 응답은 한 줄로 뭉쳐서 오나요?</h2>
+    <p>대부분의 API 서버는 응답 크기를 줄이기 위해 JSON을 압축(minify)해서 전송합니다. 들여쓰기나 줄바꿈이 없는 게 네트워크 전송에는 효율적이지만, 사람이 눈으로 읽기에는 매우 불편합니다. 특히 중첩된 객체와 배열이 많은 응답일수록 어디서 어디까지가 하나의 항목인지 구분하기 어려워집니다.</p>
+
+    <h2>단계별로 따라 해보기</h2>
+    <p><strong>1단계.</strong> 브라우저 개발자 도구(F12)를 열고 Network 탭에서 확인하려는 API 요청을 클릭합니다. Response 또는 Preview 탭에서 응답 내용을 전체 선택해 복사합니다.</p>
+    <p><strong>2단계.</strong> <a href="json-formatter.html">JSON 포매터/검증기</a> 페이지를 열고 입력창에 복사한 내용을 붙여넣습니다.</p>
+    <p><strong>3단계.</strong> <strong>정렬(2칸)</strong> 또는 <strong>정렬(4칸)</strong> 버튼을 누르면 들여쓰기가 적용되어 어떤 필드가 어떤 객체에 속하는지 한눈에 보입니다. 배열 안에 배열이 있는 복잡한 구조도 계층이 명확하게 드러납니다.</p>
+    <p><strong>4단계.</strong> 응답에 문법 오류가 있거나(예: 서버가 JSON이 아닌 에러 페이지를 반환한 경우) 파싱이 실패하면 오류 메시지와 대략적인 위치가 표시되므로, 실제로 유효한 JSON을 받은 게 맞는지 바로 확인할 수 있습니다.</p>
+
+    <h2>실무에서 자주 쓰는 상황</h2>
+    <ul>
+      <li>새로 붙이는 외부 API의 응답 구조를 처음 파악할 때, 문서보다 실제 응답을 보는 게 더 정확한 경우가 많습니다.</li>
+      <li>버그 리포트에서 "응답이 이상하게 온다"는 제보를 받았을 때, 실제 원본 응답을 정리해서 살펴보면 원인을 빠르게 좁힐 수 있습니다.</li>
+      <li>백엔드 팀과 프론트엔드 팀이 응답 스펙을 논의할 때, 정리된 JSON을 캡처해서 공유하면 커뮤니케이션이 빨라집니다.</li>
+      <li>응답을 문서나 이슈 트래커에 첨부하기 전에 필요없는 공백을 없애 압축된 형태로 만들고 싶을 때도 같은 도구의 압축 기능을 사용할 수 있습니다.</li>
+    </ul>
+
+    <h2>정리</h2>
+    <p>API 응답을 눈으로 읽기 좋게 만드는 것만으로도 디버깅 속도가 크게 달라집니다. <a href="json-formatter.html">JSON 포매터/검증기</a>는 별도 설치 없이 브라우저에서 바로 사용할 수 있고, 붙여넣은 응답 내용은 서버로 전송되지 않으므로 사내 API처럼 민감한 데이터도 안심하고 확인할 수 있습니다.</p>
+  </article>
+
+  <div class="ad-slot"><!-- AdSense 광고 영역 --> 광고 영역 </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 DevToolbox — 모든 도구는 브라우저에서만 동작하며 데이터를 서버로 전송하지 않습니다.</p>
+    <p><a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+<script src="js/common.js"></script>
+</body>
+</html>

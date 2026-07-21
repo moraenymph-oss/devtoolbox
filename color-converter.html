@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/color-converter.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"HEX와 RGB 중 어떤 것을 써야 하나요?","acceptedAnswer":{"@type":"Answer","text":"CSS에서는 둘 다 동일하게 동작합니다. 투명도가 필요하면 rgba()를, 간결한 표기를 원하면 HEX를 사용하세요."}},
+{"@type":"Question","name":"3자리 HEX 코드도 인식하나요?","acceptedAnswer":{"@type":"Answer","text":"네, #f60처럼 축약형도 자동으로 6자리(#ff6600)로 확장해 처리합니다."}},
+{"@type":"Question","name":"HSL 표기는 언제 유용한가요?","acceptedAnswer":{"@type":"Answer","text":"같은 색상에서 명도·채도만 조절하고 싶을 때 직관적입니다. 디자인 시스템에서 색상 변형을 만들 때 자주 사용됩니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -82,6 +89,22 @@
     </ul>
     <p>HSL(색상·채도·명도) 표기는 "같은 색에서 조금 더 밝게/어둡게" 같은 조정이 직관적이라 디자인 시스템에서 널리 쓰입니다. 변환 계산은 모두 브라우저 안에서 이루어집니다. 기준 색상에 어울리는 배색 조합이 필요하다면 <a href="color-palette.html">색상 팔레트 생성기</a>를 사용해 보세요.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. HEX와 RGB 중 어떤 것을 써야 하나요?</summary>
+      <p>A. CSS에서는 둘 다 동일하게 동작합니다. 투명도가 필요하면 rgba()를, 간결한 표기를 원하면 HEX를 사용하세요.</p>
+    </details>
+    <details>
+      <summary>Q. 3자리 HEX 코드도 인식하나요?</summary>
+      <p>A. 네, #f60처럼 축약형도 자동으로 6자리(#ff6600)로 확장해 처리합니다.</p>
+    </details>
+    <details>
+      <summary>Q. HSL 표기는 언제 유용한가요?</summary>
+      <p>A. 같은 색상에서 명도·채도만 조절하고 싶을 때 직관적입니다. 디자인 시스템에서 색상 변형을 만들 때 자주 사용됩니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

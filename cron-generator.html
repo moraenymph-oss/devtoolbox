@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/cron-generator.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"크론의 요일 필드는 0이 무슨 요일인가요?","acceptedAnswer":{"@type":"Answer","text":"0은 일요일이며 6은 토요일입니다(리눅스 표준 cron 기준)."}},
+{"@type":"Question","name":"초 단위 스케줄이 필요하면 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"스프링 @Scheduled, node-cron 등 6필드를 쓰는 시스템은 맨 앞에 초 필드를 추가해야 합니다. 이 도구는 표준 5필드(분 시 일 월 요일)만 지원합니다."}},
+{"@type":"Question","name":"서버 시간대가 UTC일 때는 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"한국 시간(KST)은 UTC보다 9시간 빠르므로, UTC 기준으로 스케줄을 등록할 때는 원하는 한국 시각에서 9를 뺀 시간을 입력하세요."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -98,6 +105,22 @@
     </ul>
     <p>크론 표현식은 시스템마다 시간대(타임존) 기준이 다르다는 점에 주의하세요. 서버가 UTC로 동작한다면 한국 시간 오전 9시는 <code>0 0 * * *</code>(UTC 0시)로 지정해야 합니다. 이 도구의 모든 계산은 브라우저에서만 이루어집니다.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. 크론의 요일 필드는 0이 무슨 요일인가요?</summary>
+      <p>A. 0은 일요일이며 6은 토요일입니다(리눅스 표준 cron 기준).</p>
+    </details>
+    <details>
+      <summary>Q. 초 단위 스케줄이 필요하면 어떻게 하나요?</summary>
+      <p>A. 스프링 @Scheduled, node-cron 등 6필드를 쓰는 시스템은 맨 앞에 초 필드를 추가해야 합니다. 이 도구는 표준 5필드(분 시 일 월 요일)만 지원합니다.</p>
+    </details>
+    <details>
+      <summary>Q. 서버 시간대가 UTC일 때는 어떻게 계산하나요?</summary>
+      <p>A. 한국 시간(KST)은 UTC보다 9시간 빠르므로, UTC 기준으로 스케줄을 등록할 때는 원하는 한국 시각에서 9를 뺀 시간을 입력하세요.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

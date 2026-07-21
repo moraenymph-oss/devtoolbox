@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/url-encoder.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"encodeURIComponent와 encodeURI는 어떻게 다른가요?","acceptedAnswer":{"@type":"Answer","text":"encodeURIComponent는 /, ?, & 같은 URL 구분 문자까지 인코딩하고, encodeURI는 URL 구조는 유지한 채 한글 등 문자만 인코딩합니다."}},
+{"@type":"Question","name":"%20과 +는 같은 의미인가요?","acceptedAnswer":{"@type":"Answer","text":"둘 다 공백을 나타내지만 %20은 URL 경로에, +는 주로 쿼리스트링(form 인코딩)에 쓰입니다."}},
+{"@type":"Question","name":"이중 인코딩이 필요한 경우는 언제인가요?","acceptedAnswer":{"@type":"Answer","text":"인코딩된 값이 다시 한 번 쿼리 파라미터로 전달될 때(예: 리다이렉트 URL)는 이중 인코딩이 필요할 수 있습니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -73,6 +80,22 @@
     </ul>
     <p>변환에는 브라우저 내장 함수인 <code>encodeURIComponent</code>, <code>encodeURI</code>, <code>decodeURIComponent</code>만 사용됩니다. 세션 토큰이 포함된 URL 등 민감한 주소도 외부로 전송되지 않으니 안심하고 변환하세요. 인코딩한 URL을 오프라인에서 공유하려면 <a href="qr-generator.html">QR코드 생성기</a>도 참고하세요.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. encodeURIComponent와 encodeURI는 어떻게 다른가요?</summary>
+      <p>A. encodeURIComponent는 /, ?, & 같은 URL 구분 문자까지 인코딩하고, encodeURI는 URL 구조는 유지한 채 한글 등 문자만 인코딩합니다.</p>
+    </details>
+    <details>
+      <summary>Q. %20과 +는 같은 의미인가요?</summary>
+      <p>A. 둘 다 공백을 나타내지만 %20은 URL 경로에, +는 주로 쿼리스트링(form 인코딩)에 쓰입니다.</p>
+    </details>
+    <details>
+      <summary>Q. 이중 인코딩이 필요한 경우는 언제인가요?</summary>
+      <p>A. 인코딩된 값이 다시 한 번 쿼리 파라미터로 전달될 때(예: 리다이렉트 URL의 returnUrl 파라미터)는 이중 인코딩이 필요할 수 있습니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">

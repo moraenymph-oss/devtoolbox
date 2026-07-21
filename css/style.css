@@ -92,10 +92,9 @@ body {
 /* 도구 네비게이션 */
 .tool-nav {
   display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scrollbar-width: thin;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  padding: 6px 0 10px;
 }
 
 .tool-nav a {
@@ -403,6 +402,55 @@ mark.rx {
   margin-bottom: 2px;
   font-family: inherit;
 }
+
+/* FAQ 아코디언 */
+.tool-article details {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  background: var(--code-bg);
+}
+
+.tool-article details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  list-style: none;
+}
+
+.tool-article details summary::-webkit-details-marker { display: none; }
+
+.tool-article details summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 6px;
+  color: var(--accent);
+  transition: transform 0.15s;
+}
+
+.tool-article details[open] summary::before { transform: rotate(90deg); }
+
+.tool-article details p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* 가이드(블로그형) 목록 */
+.guide-list { display: grid; gap: 12px; margin-top: 14px; }
+.guide-card {
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--text);
+}
+.guide-card:hover { border-color: var(--accent); }
+.guide-card h3 { margin: 0 0 4px; font-size: 1rem; }
+.guide-card p { margin: 0; font-size: 0.85rem; color: var(--muted); }
 
 /* cron 필드 */
 .cron-grid {

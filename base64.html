@@ -8,6 +8,13 @@
 <link rel="canonical" href="https://moraenymph-oss.github.io/devtoolbox/base64.html">
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.dataset.theme=(function(){try{return localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){return"light"}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Base64는 암호화인가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. Base64는 단순 인코딩 방식이라 누구나 쉽게 복호화할 수 있습니다. 비밀번호 보호 등 보안 목적으로 사용하면 안 됩니다."}},
+{"@type":"Question","name":"URL-Safe 옵션은 언제 사용하나요?","acceptedAnswer":{"@type":"Answer","text":"Base64 결과를 URL이나 파일명에 넣을 때 +, / 문자가 문제가 될 수 있어, 이를 -, _로 바꾼 URL-Safe(Base64URL) 형식을 사용합니다."}},
+{"@type":"Question","name":"디코딩이 실패하는 이유는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"입력한 문자열이 유효한 Base64 형식이 아니거나, 디코딩 결과가 올바른 UTF-8 텍스트가 아닌 경우(바이너리 데이터 등) 실패할 수 있습니다."}}
+]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -76,6 +83,22 @@
     </ul>
     <p>Base64는 암호화가 아니라 단순 인코딩이므로 비밀번호 보호 용도로는 사용하면 안 됩니다. 이 도구의 모든 변환은 브라우저 내장 함수로 처리되며, 토큰이나 인증 정보 같은 민감한 값도 외부로 전송되지 않으니 안심하고 사용하세요.</p>
   </article>
+
+  <section class="tool-article" aria-label="자주 묻는 질문">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>Q. Base64는 암호화인가요?</summary>
+      <p>A. 아니요. Base64는 단순 인코딩 방식이라 누구나 쉽게 복호화할 수 있습니다. 비밀번호 보호 등 보안 목적으로 사용하면 안 됩니다.</p>
+    </details>
+    <details>
+      <summary>Q. URL-Safe 옵션은 언제 사용하나요?</summary>
+      <p>A. Base64 결과를 URL이나 파일명에 넣을 때 +, / 문자가 문제가 될 수 있어, 이를 -, _로 바꾼 URL-Safe(Base64URL) 형식을 사용합니다.</p>
+    </details>
+    <details>
+      <summary>Q. 디코딩이 실패하는 이유는 무엇인가요?</summary>
+      <p>A. 입력한 문자열이 유효한 Base64 형식이 아니거나, 디코딩 결과가 올바른 UTF-8 텍스트가 아닌 경우(바이너리 데이터 등) 실패할 수 있습니다.</p>
+    </details>
+  </section>
 </main>
 
 <footer class="site-footer">
